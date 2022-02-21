@@ -5,3 +5,4 @@ nltk
 tqdm
 pyquran
 torch
+Kivy
