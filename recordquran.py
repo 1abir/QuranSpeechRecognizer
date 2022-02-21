@@ -1,5 +1,3 @@
-from os import path
-from unicodedata import name
 import sounddevice as sd
 from transformers import Wav2Vec2ForCTC,Wav2Vec2Processor
 from lang_trans.arabic import buckwalter
