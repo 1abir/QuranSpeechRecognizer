@@ -1,8 +1,9 @@
 sounddevice
 transformers
-lang_trans.arabic
+lang-trans
 nltk
 tqdm
 pyquran
 torch
-Kivy
+arabic-reshaper
+python-bidi

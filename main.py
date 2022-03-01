@@ -106,7 +106,7 @@ class HomePage(Widget):
             self.pipeline_func = rq.pipeline_whole_quran
 
             if self.juzz_amma:
-                self.added_load_widgetpipeline_func = rq.pipeline_last_para
+                self.pipeline_func = rq.pipeline_last_para
             
             Clock.schedule_once(self.recording_helper, 0.5)
 

@@ -6,6 +6,11 @@ from tqdm import tqdm
 import pyquran as q
 import torch
 
+# install: pip install --upgrade arabic-reshaper
+import arabic_reshaper
+
+# install: pip install python-bidi
+from bidi.algorithm import get_display
 
 
 def load_models():
@@ -94,11 +99,17 @@ def pipeline_last_para():
         "sampling_rate": fs,
     }
 
+    
     predicted = predict(single_example)
+    text = predicted["predicted"]
+    reshaped_text = arabic_reshaper.reshape(text)    # correct its shape
+    bidi_text = get_display(reshaped_text)           # correct its direction
 
-    print(predicted["predicted"])
+    
 
-    return predicted["predicted"]
+    print('eita:', bidi_text)
+
+    return bidi_text
     
 
 def pipeline_whole_quran():
