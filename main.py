@@ -1,4 +1,3 @@
-import imp
 from turtle import width
 from kivy.app import App
 from kivy.uix.widget import Widget
@@ -8,7 +7,7 @@ from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.loader import Loader  
 import recordquran as rq
-from functools import partial
+# from functools import partial
 import threading
 
 class HomePage(Widget):

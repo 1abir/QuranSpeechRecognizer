@@ -133,17 +133,18 @@ def quran_finder(predicted,whole_quran=False):
         print("distance:",dist)
         matches = []
         for i in poses:
-            print(last_para[i:i+200],'\n')
+            # print(last_para[i:i+200],'\n')
             matches.append(last_para[i:i+200])
+        print("Number of matches:",len(matches))
         return matches, dist
     else:
         dist,poses = find_match_2(all_para,q.strip_tashkeel(predicted),spaces=all_para_spaces)
         print("distance:",dist)
         matches = []
         for i in poses:
-            print(last_para[i:i+200],'\n')
+            # print(last_para[i:i+200],'\n')
             matches.append(last_para[i:i+200])
-
+        print("Number of matches:",len(matches))
         return matches , dist
 
 def load(callback,*args):
