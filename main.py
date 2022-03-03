@@ -10,6 +10,8 @@ from kivy.loader import Loader
 import recordquran as rq
 from functools import partial
 import threading
+from bidi.algorithm import get_display
+import arabic_reshaper
 
 class HomePage(Widget):
 
@@ -112,7 +114,13 @@ class HomePage(Widget):
 
     def recording_helper(self,*args):
         self.predicted = self.pipeline_func()
-        self.prediction_label.text = "وتوقع:  " + self.predicted
+
+        reshaped_text = arabic_reshaper.reshape(self.predicted)    # correct its shape
+        bidi_text = get_display(reshaped_text)           # correct its direction
+        print("Prediction Original: ", self.predicted)
+        print("Prediction:",bidi_text)
+
+        self.prediction_label.text = bidi_text
         self.add_widget(self.prediction_label)
         self.added_prediction_label = True
         self.record_button.text = 'Recorded'
@@ -123,7 +131,11 @@ class HomePage(Widget):
     def recording_helper_2(self,*args):
         self.matches, self.distance = rq.quran_finder(self.predicted,whole_quran=not self.juzz_amma)
         # self.prediction_text.text = "Quran Text:  " '\n\n'.join(self.matches)
-        self.prediction_text.text = "نص القرآن:  " + self.matches[-1]
+        reshaped_text = arabic_reshaper.reshape(self.matches[-1])    # correct its shape
+        bidi_text = get_display(reshaped_text)           # correct its direction
+        self.prediction_text.text = bidi_text
+        print("Quran Text Original: ", self.matches[-1])
+        print("Quran Text:",bidi_text)
         self.add_widget(self.quran_view)
         self.added_prediction_text = True
         print("Added Quran Text")

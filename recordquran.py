@@ -6,12 +6,6 @@ from tqdm import tqdm
 import pyquran as q
 import torch
 
-# install: pip install --upgrade arabic-reshaper
-import arabic_reshaper
-
-# install: pip install python-bidi
-from bidi.algorithm import get_display
-
 
 def load_models():
     global loaded_model, loaded_processor
@@ -101,15 +95,10 @@ def pipeline_last_para():
 
     
     predicted = predict(single_example)
-    text = predicted["predicted"]
-    reshaped_text = arabic_reshaper.reshape(text)    # correct its shape
-    bidi_text = get_display(reshaped_text)           # correct its direction
 
-    
+    # print(text)
 
-    print('eita:', bidi_text)
-
-    return bidi_text
+    return predicted["predicted"]
     
 
 def pipeline_whole_quran():
@@ -123,7 +112,7 @@ def pipeline_whole_quran():
 
     predicted = predict(single_example)
 
-    print(predicted["predicted"])
+    # print(predicted["predicted"])
 
     return predicted["predicted"]
 
@@ -133,17 +122,18 @@ def quran_finder(predicted,whole_quran=False):
         print("distance:",dist)
         matches = []
         for i in poses:
-            print(last_para[i:i+200],'\n')
+            # print(last_para[i:i+200],'\n')
             matches.append(last_para[i:i+200])
+        print("Length of matches:",len(matches))
         return matches, dist
     else:
         dist,poses = find_match_2(all_para,q.strip_tashkeel(predicted),spaces=all_para_spaces)
         print("distance:",dist)
         matches = []
         for i in poses:
-            print(last_para[i:i+200],'\n')
+            # print(last_para[i:i+200],'\n')
             matches.append(last_para[i:i+200])
-
+        print("Length of matches:",len(matches))
         return matches , dist
 
 def load(callback,*args):
